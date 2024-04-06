@@ -1,0 +1,13 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/meetingroom
+    username: root
+    password: 123456
+#logging:
+#  # 设置logback.xml位置
+#  #  config: classpath:log/logback.xml
+#  # 设置log4j.properties位置
+#  config: classpath:log4j.properties
