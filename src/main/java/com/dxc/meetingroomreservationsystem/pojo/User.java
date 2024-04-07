@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 @Data
@@ -23,5 +25,7 @@ public class User implements Serializable {
     private Date createTime;
     private String updatedBy;
     private Date updateTime;
+
+    private Collection<? extends GrantedAuthority> authorities;
 
 }

@@ -1,5 +1,9 @@
 package com.dxc.meetingroomreservationsystem.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.dxc.meetingroomreservationsystem.mapper.UserMapper;
+import com.dxc.meetingroomreservationsystem.pojo.MyUser;
 import com.dxc.meetingroomreservationsystem.pojo.User;
 import com.dxc.meetingroomreservationsystem.pojo.enums.UserRoleEnums;
 import com.dxc.meetingroomreservationsystem.service.UserService;
@@ -21,24 +25,23 @@ import java.util.List;
 public class UserServiceDetailImpl implements UserDetailsService {
 
     @Autowired
-    private UserService userService;
+    private UserMapper mapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.getUserByUserName(username);
+        User user = mapper.getUserByUserName(username);
 
         if(user == null){
             throw new UsernameNotFoundException(username + " not fond");
         }
 
-        List<GrantedAuthority> authorities = new ArrayList<>();
+        MyUser myUser = MyUser.createMyUser(user);
 
-        if(user.getRole().equals(UserRoleEnums.ADMIN.getRole())){
-            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        }else{
-            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        if(StringUtils.isNotBlank(user.getRole())){
+            myUser.getAuthorities().add(new SimpleGrantedAuthority(user.getRole()));
         }
 
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),authorities);
+        return myUser;
+
     }
 }

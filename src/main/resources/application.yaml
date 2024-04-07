@@ -11,3 +11,10 @@ spring:
 #  #  config: classpath:log/logback.xml
 #  # 设置log4j.properties位置
 #  config: classpath:log4j.properties
+
+jwt:
+  header: Authorization
+  base64-secret: meng
+  token-validity-in-seconds: 14400000
+
+
