@@ -35,7 +35,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         String requestUrl = httpServletRequest.getRequestURI();
 
         //String authToken = httpServletRequest.getHeader(jwtProperties.getHeader());
-        String authToken = httpServletRequest.getParameter(jwtProperties.getHeader());
+        String authToken = httpServletRequest.getHeader(jwtProperties.getHeader());
 
         String stuId = jwtTokenUtil.getUsernameFromToken(authToken);
 
