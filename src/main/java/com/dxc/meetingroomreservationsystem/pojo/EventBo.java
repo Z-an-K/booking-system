@@ -25,6 +25,5 @@ public class EventBo implements Serializable {
     private List<Integer> week;
     private Integer weekth;
     private Integer weekType;
-
-
+    private String groupId;
 }

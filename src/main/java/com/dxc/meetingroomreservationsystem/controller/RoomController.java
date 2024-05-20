@@ -19,8 +19,8 @@ public class RoomController {
     @Autowired
     private RoomService roomService;
     @GetMapping("/getRooms")
-    public R<List<Room>> getRooms(){
-        List<Room> list = roomService.list();
+    public R<List<Room>> getRooms(Room room){
+        List<Room> list = roomService.getRoomList(room);
         return R.createBySuccess(list);
     }
 
@@ -45,3 +45,4 @@ public class RoomController {
         return remove ?  R.createBySuccess():R.createByError();
     }
 }
+

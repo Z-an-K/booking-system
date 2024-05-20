@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 @Data
-public class extendedProps implements Serializable {
+public class ExtendedProps implements Serializable {
     private static final long serialVersionUID = 5614263158176077768L;
     private String username;
     private String roomNumber;
@@ -20,8 +20,10 @@ public class extendedProps implements Serializable {
     private List<Integer> week;
     private Integer weekth;
     private Integer weekType;
+    private int eventId;
+    private String groupId;
 
-    private extendedProps(Builder builder) {
+    private ExtendedProps(Builder builder) {
         this.username = builder.username;
         this.roomNumber = builder.roomNumber;
         this.details = builder.details;
@@ -34,6 +36,9 @@ public class extendedProps implements Serializable {
         this.week = builder.week;
         this.weekth = builder.weekth;
         this.weekType = builder.weekType;
+        this.groupId = builder.groupId;
+        this.eventId = builder.eventId;
+
     }
 
     public static class Builder {
@@ -49,6 +54,9 @@ public class extendedProps implements Serializable {
         private List<Integer> week;
         private Integer weekth;
         private Integer weekType;
+        private int eventId;
+
+        private String groupId;
 
         public Builder username(String username) {
             this.username = username;
@@ -110,8 +118,18 @@ public class extendedProps implements Serializable {
             return this;
         }
 
-        public extendedProps build() {
-            return new extendedProps(this);
+        public Builder eventId(int eventId){
+            this.eventId = eventId;
+            return this;
+        }
+
+        public Builder groupId(String groupId){
+            this.groupId = groupId;
+            return this;
+        }
+
+        public ExtendedProps build() {
+            return new ExtendedProps(this);
         }
     }
 }

@@ -23,7 +23,7 @@ public class User extends BasePojo implements Serializable {
     private String password;
     private String email;
     private String role;
-
+    @TableField(exist = false)
     private Collection<? extends GrantedAuthority> authorities;
 
 }

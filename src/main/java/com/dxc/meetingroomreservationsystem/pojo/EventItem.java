@@ -18,7 +18,7 @@ public class EventItem implements Serializable {
     private Date end;
     private boolean overlap = true;
     private String backgroundColor;
-    private extendedProps extendedProps;
+    private ExtendedProps extendedProps;
 
     public EventItem() {
     }
@@ -28,7 +28,7 @@ public class EventItem implements Serializable {
         this.start = event.getStart();
         this.end = event.getEnd();
         this.backgroundColor = event.getBackgroundColor();
-        this.extendedProps = new extendedProps.Builder()
+        this.extendedProps = new ExtendedProps.Builder()
                 .username(event.getUsername())
                 .roomNumber(event.getRoomId())
                 .details(event.getDetails())
@@ -41,6 +41,8 @@ public class EventItem implements Serializable {
                 .week(event.getWeek())
                 .weekth(event.getWeekth())
                 .weekType(event.getWeekType())
+                .eventId(event.getId())
+                .groupId(event.getGroupId())
                 .build();
     }
 

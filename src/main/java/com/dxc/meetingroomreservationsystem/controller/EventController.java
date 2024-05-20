@@ -1,12 +1,13 @@
 package com.dxc.meetingroomreservationsystem.controller;
 
-import com.dxc.meetingroomreservationsystem.pojo.Event;
-import com.dxc.meetingroomreservationsystem.pojo.EventBo;
-import com.dxc.meetingroomreservationsystem.pojo.EventDto;
-import com.dxc.meetingroomreservationsystem.pojo.EventItem;
+import com.dxc.meetingroomreservationsystem.pojo.*;
 import com.dxc.meetingroomreservationsystem.service.EventService;
 import com.dxc.meetingroomreservationsystem.utils.R;
+import com.dxc.meetingroomreservationsystem.utils.UserDetailsUtil;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -31,4 +32,24 @@ public class EventController {
         return res ? R.createBySuccess("Booking Success") : R.createByError("Booking Error");
     }
 
+    @PostMapping("/updateEvent")
+    public R<Boolean> updateEvent(@RequestBody EventBo event){
+        boolean res = eventService.updateEvent(event);
+        return res ? R.createBySuccess("Update Success") : R.createByError("Update Error");
+    }
+
+    @GetMapping("/getEventByUser")
+    public R<List<BookingTable>> getEventByUser(@RequestParam Integer userId,
+                                                @RequestParam(required = false) String location,
+                                                @RequestParam(required = false) String roomNumber){
+        List<BookingTable> eventByUser = eventService.getEventByUser(userId,location,roomNumber);
+        return eventByUser != null ? R.createBySuccess(eventByUser):R.createByError();
+    }
+
+    @DeleteMapping("/deleteEventByGroupId")
+    public R<Boolean> deleteByGroupId(String groupId){
+        boolean delete = eventService.deleteByGroupId(groupId);
+        return delete ? R.createBySuccess("delete success") : R.createByError("delete error");
+    }
 }
+

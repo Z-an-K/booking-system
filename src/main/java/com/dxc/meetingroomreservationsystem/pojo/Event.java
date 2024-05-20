@@ -13,6 +13,7 @@ import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @TableName("tb_event")
@@ -22,18 +23,22 @@ public class Event extends BasePojo {
     @TableId(type = IdType.AUTO)
     private Integer id;
     private String title;
+    @TableField("`start`")
     private Date start;
+    @TableField("`end`")
     private Date end;
-    private String backgroundColor;
     private String details;
     private boolean recurrence;
     private Integer recurrencePattern;
+    @TableField("`from`")
     private Date from;
+    @TableField("`to`")
     private Date to;
-    @TableField(typeHandler = IntegerListTypeHandler.class)
+    @TableField(value = "`week`",typeHandler = IntegerListTypeHandler.class)
     private List<Integer> week;
     private Integer weekth;
     private Integer weekType;
+    private String groupId;
 
     public Event(){
 
@@ -43,5 +48,18 @@ public class Event extends BasePojo {
         this.end = eventBo.getEndTime();
         this.details = eventBo.getDetails();
         this.title = eventBo.getTitle();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return Objects.equals(groupId, event.groupId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(groupId);
     }
 }

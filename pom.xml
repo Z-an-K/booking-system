@@ -120,6 +120,7 @@
     </dependencyManagement>
 
     <build>
+        <finalName>app</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -137,7 +138,7 @@
                 <version>${spring-boot.version}</version>
                 <configuration>
                     <mainClass>com.dxc.meetingroomreservationsystem.MeetingroomReservationSystemApplication</mainClass>
-                    <skip>true</skip>
+<!--                    <skip>true</skip>-->
                 </configuration>
                 <executions>
                     <execution>

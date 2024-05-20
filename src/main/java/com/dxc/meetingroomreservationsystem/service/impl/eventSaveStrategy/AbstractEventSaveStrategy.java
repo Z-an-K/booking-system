@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.time.*;
 import java.time.temporal.TemporalAdjusters;
 import java.util.*;
+import java.util.function.Consumer;
 
 @Component
 @Slf4j
@@ -70,7 +71,9 @@ public abstract class AbstractEventSaveStrategy implements EventSaveStrategy {
 
         // 调用策略
         List<Event> recurrenceEvent = generateRecurrenceDate(event, startLocalTime, endLocalTime, fromDate, toDate, recurrenceDate);
+        String uuid = UUID.randomUUID().toString();
 
+        recurrenceEvent.forEach(event1 -> event1.setGroupId(uuid));
         // 保存到db
         eventMapper.insertBatch(recurrenceEvent);
         List<Record> records = new ArrayList<>();
@@ -99,7 +102,6 @@ public abstract class AbstractEventSaveStrategy implements EventSaveStrategy {
             nextWeek = nextWeek.plusWeeks(peerWeek);
         }
     }
-
     protected void getWeeksInMonth(List<List<Date>> recurrenceDate,LocalDate fromDate, LocalDate toDate,List<DayOfWeek> days, int rank,LocalTime startLocalTime,
                                  LocalTime endLocalTime) {
         List<LocalDate> weeks = new ArrayList<>();
@@ -130,7 +132,6 @@ public abstract class AbstractEventSaveStrategy implements EventSaveStrategy {
                         weeks.add(date.with(TemporalAdjusters.lastInMonth(day)));
                     }
                 }
-
             }
             for (LocalDate week : weeks) {
                 LocalDateTime startLocalDateTime = LocalDateTime.of(week, startLocalTime);
